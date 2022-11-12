@@ -1,4 +1,4 @@
-import { collection, addDoc } from "firebase/firestore";
+import { collection, getDocs, query, where,addDoc } from "firebase/firestore";
 import { db } from "../firebase";
 import { useState } from "react";
 import {
@@ -20,6 +20,9 @@ const AddStudent = () => {
   const [Course, setCourse] = useState("");
   const [Teacher, setTeacher] = useState("");
   const [imgUrl, setimgUrl] = useState("");
+  const [SearchStudent, setSearchStudent] = useState("");
+  //
+  const [Document, setDocument] = useState({});
 
   const setStudentData = async (e) => {
     e.preventDefault();
@@ -73,6 +76,24 @@ const AddStudent = () => {
       }
     );
     //
+    const q = query(
+      collection(db, "AddStudentData"),
+      where("Roll", "==", SearchStudent)
+    );
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach((doc) => {
+      let data = JSON.stringify(doc.data())
+      console.log(data );
+      console.log(JSON.parse(data) );
+      let mata = JSON.parse(data)
+      console.log(mata);
+      setDocument(JSON.parse(data));
+
+
+      
+      // console.log(doc);
+    });
+    // c
   };
 
   return (
@@ -109,6 +130,7 @@ const AddStudent = () => {
                 id="Roll"
                 onChange={(e) => {
                   setRoll(e.target.value);
+                  setSearchStudent(e.target.value);
                 }}
                 placeholder="Roll Number"
               />
@@ -180,6 +202,7 @@ const AddStudent = () => {
           </tr>
         </table>
       </form>
+      
     </div>
   );
 };

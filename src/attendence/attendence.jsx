@@ -1,5 +1,5 @@
 import { db } from "../firebase";
-import { collection, getDocs, query, where } from "firebase/firestore";
+import { collection, getDocs, query, where,updateDoc ,doc} from "firebase/firestore";
 import {React, useState } from "react";
 import './attendence.css'
 //
@@ -19,6 +19,7 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import ShareIcon from '@mui/icons-material/Share';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import MoreVertIcon from '@mui/icons-material/MoreVert';import TextField from '@mui/material/TextField';import Box from '@mui/material/Box';
+import { async } from "@firebase/util";
 
 
 const ExpandMore = styled((props) => {
@@ -34,11 +35,12 @@ const ExpandMore = styled((props) => {
 
 const Attendence = () => {
   const [expanded, setExpanded] = useState(false);
-
+  let UserId 
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
 
+  const [AttendeceValue, setAttendeceValue] = useState({});
   const [SearchStudent, setSearchStudent] = useState("");
   const [Document, setDocument] = useState({});
 
@@ -48,8 +50,10 @@ const Attendence = () => {
       collection(db, "AddStudentData"),
       where("Roll", "==", SearchStudent)
     );
+    
     const querySnapshot = await getDocs(q);
     querySnapshot.forEach((doc) => {
+      UserId = doc.id;
       let data = JSON.stringify(doc.data())
       console.log(data );
       console.log(JSON.parse(data) );
@@ -67,7 +71,18 @@ const Attendence = () => {
     //   console.log(`${doc.id}`);
     // });
   };
+  const CheckAttendence = async(e)=>{
+      e.preventDefault();
+      // console.log(Editing.editingfile);
+      await updateDoc(doc(db, "AddStudentData", UserId ), {
+        ...Document,
+        mark:AttendeceValue
+      });
+    };
+  
   return (<>
+  <div className="maiin">
+
     <Card className="MainCard">
       <h3 className="attendenceHed">Attendence</h3>
     <Box
@@ -126,72 +141,22 @@ const Attendence = () => {
           value={Document.Course}
           // id="Course"
         />
+        <select name="" id="teachr" onChange={(e)=>{
+         setAttendeceValue(e.target.value)
+        }}>
+          <option value="Present">Present</option>
+          <option value="Leave">Leave</option>
+          <option value="Late">Late</option>
+          <option value="Absent">Absent</option>
+        </select>
+        <button onClick={CheckAttendence}>Check</button>
       </div>
       
       </CardActions>
 
     </Card>
   
-    {/* <div>
-      <h1>Attendence</h1>
-      <form onClick={SearchStudentData}>
-        <input
-          type="search"
-          name=""
-          id="SearchStudent"
-          // onChange={(e) => {
-          //   setSearchStudent(e.target.value);
-          // }}
-        />
-        <input type="submit" value={"Search"} />
-      </form>
-      <form>
-        <input
-          type="text"
-          placeholder="Name"
-          value={Document.Name}
-          id="StudentName"
-        />
-        <input
-          type="text"
-          placeholder="Father"
-          value={Document.Father}
-          id="StudentFather"
-        />
-        <input
-          type="text"
-          placeholder="Roll"
-          value={Document.Roll}
-          id="StudentRoll"
-        />
-        <input
-          type="text"
-          placeholder="Contact"
-          value={Document.Contact}
-          id="StudentContact"
-        />
-        <input
-          type="text"
-          placeholder="CNIC"
-          value={Document.CNIC}
-          id="StudentCNIC"
-        />
-        <img src={Document.Picture} alt="aa" width={'200px'} />
-        {/* <input
-          type="text"
-          placeholder="Picture"
-          value={Document.Picture}
-          id="StudentPicture"
-        /> */}
-        {/* <input
-          type="text"
-          placeholder="Course"
-          value={Document.Course}
-          id="StudentCourse" */}
-        {/* /> */}
-      {/* </form> */}
-    {/* </div> */}
-     {/* */} 
+    </div>
 
   </>
 

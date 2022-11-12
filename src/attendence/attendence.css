@@ -5,6 +5,10 @@
   /* height: ; */
   width: 100%;
   
+}.maiin{
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .MainCard {
     padding: 10px;
@@ -15,7 +19,7 @@
   text-transform: capitalize;
   text-align: center;
 }
-.card input {
+.card input,select,button {
   outline: none;
   border: 1px solid rgb(190, 190, 190);
   padding: 5px;
