@@ -24,21 +24,13 @@ import { BrowserRouter as Router, Routes, Route, Link, useNavigate } from "react
 const drawerWidth = 240;
 const navItems = ["Classes", "Attendence", "Student", "Data"];
 function App(props) {
-  <Router>
-    <div className="ForLinks">
-      <Link to="/login">Login</Link>
-    </div>
-    <Routes>
-      <Route exact path="/login" element={<Login />} />
-    </Routes>
-  </Router>;
+  ;
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
-
+  
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
-
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: "center" }}>
       <Typography variant="h6" sx={{ my: 2 }}>
@@ -57,12 +49,13 @@ function App(props) {
     </Box>
   );
 
+
   const container =
     window !== undefined ? () => window().document.body : undefined;
   return (
     <div>
-
-    <Box sx={{ display: "flex" }}>
+<Router>
+<Box sx={{ display: "flex" }}>
       <AppBar component="nav">
         <Toolbar>
           <IconButton
@@ -87,7 +80,7 @@ function App(props) {
                 key={item}
                 sx={{ color: "#fff" }}
                 onClick={() => {
-                  <Link to={"/login"}>home</Link>;
+             
                   console.log(item);
                 }}
               >
@@ -124,6 +117,14 @@ function App(props) {
         </Typography>
       </Box>
     </Box>
+    <div className="ForLinks">
+      <Link to="/login">Login</Link>
+    </div>
+    <Routes>
+      <Route exact path="/login" element={<Login />} />
+    </Routes>
+  </Router>
+   
     <Login/>
     <CreateClass/>
     <AddStudent/>

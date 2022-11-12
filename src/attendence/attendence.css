@@ -1,0 +1,41 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  width: max-content;
+  /* height: ; */
+  width: 100%;
+  
+}
+.MainCard {
+    padding: 10px;
+    border: 1px solid rgb(190, 190, 190);
+  border-radius: 30px;
+  /* line-height: 2px; */
+  width: 250px;
+  text-transform: capitalize;
+  text-align: center;
+}
+.card input {
+  outline: none;
+  border: 1px solid rgb(190, 190, 190);
+  padding: 5px;
+  border-radius: 30px;
+  text-align: center;
+  margin-top: 15px;
+}
+.seacr {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+}
+.attendenceHed {
+  display: flex;
+  justify-content: center;
+  color: rgb(153, 152, 152);
+}.cardHeader span{
+    border-radius: 30px;
+    text-align: center;
+    margin-top: 3px;
+    border: 1px solid rgb(190, 190, 190);
+}

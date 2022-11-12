@@ -1,0 +1,22 @@
+.formRow{
+    display: flex;
+}.Addtable{
+    width: 100%;
+}
+form{
+    /* border: 1px solid red; */
+    padding: 10px;
+    
+}form table{
+    padding: 20px;
+    border-radius: 30px;
+    border: 1px solid rgb(190, 190, 190);
+}
+.AddBtn{
+width: ;
+}form table tr td input,#adminSetClass,option{
+    padding: 10px;
+     border: 1px solid rgb(190, 190, 190);
+    border-radius: 30px;
+    width: 150px;
+}

@@ -1,7 +1,9 @@
 import { db } from "../firebase";
 import { collection, getDocs, query, where } from "firebase/firestore";
 import {React, useState } from "react";
+import './attendence.css'
 //
+import SearchIcon from '@mui/icons-material/Search';
 import { styled } from '@mui/material/styles';
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
@@ -16,7 +18,8 @@ import { red } from '@mui/material/colors';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import ShareIcon from '@mui/icons-material/Share';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
+import MoreVertIcon from '@mui/icons-material/MoreVert';import TextField from '@mui/material/TextField';import Box from '@mui/material/Box';
+
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -65,91 +68,80 @@ const Attendence = () => {
     // });
   };
   return (<>
-    <Card sx={{ maxWidth: 345 }}>
-      <CardHeader
+    <Card className="MainCard">
+      <h3 className="attendenceHed">Attendence</h3>
+    <Box
+      component="form"
+      noValidate
+      autoComplete="off"
+    >
+      <div className="seacr">
+
+      <TextField id="filled-basic" label="Filled" variant="filled" onChange={(e) => {
+        setSearchStudent(e.target.value);
+      }}/>
+            
+          <IconButton aria-label="settings" onClick={SearchStudentData}>
+            <SearchIcon />
+          </IconButton>
+      </div>
+        
+    </Box>
+    
+      <CardHeader className="cardHeader"
         avatar={
-          <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-            R
+          <Avatar sx={{  }} aria-label="recipe">
+            <img width={'100%'} height={'100%'} src={Document.Picture} alt="" />
           </Avatar>
         }
-        action={
-          <IconButton aria-label="settings">
-            <MoreVertIcon />
-          </IconButton>
-        }
-        title="Shrimp and Chorizo Paella"
-        subheader="September 14, 2016"
+    
+        title={Document.Name}
+        subheader={Document.Father}
       />
-      <CardMedia
-        component="img"
-        height="194"
-        image={url}
-        alt="Paella dish"
-      />
-      <CardContent>
-        <Typography variant="body2" color="text.secondary">
-          This impressive paella is a perfect party dish and a fun meal to cook
-          together with your guests. Add 1 cup of frozen peas along with the mussels,
-          if you like.
-        </Typography>
-      </CardContent>
-      <CardActions disableSpacing>
-        <IconButton aria-label="add to favorites">
-          <FavoriteIcon />
-        </IconButton>
-        <IconButton aria-label="share">
-          <ShareIcon />
-        </IconButton>
-        <ExpandMore
-          expand={expanded}
-          onClick={handleExpandClick}
-          aria-expanded={expanded}
-          aria-label="show more"
-        >
-          <ExpandMoreIcon />
-        </ExpandMore>
+     
+      <CardActions >
+        {/* <label htmlFor="StudentRoll"></label> */}
+      <div className="card">
+      <input
+          type="text"
+          placeholder="Roll"
+          value={Document.Roll}
+          id="StudentRoll"
+        />
+        <input
+          type="text"
+          placeholder="Contact"
+          value={Document.Contact}
+          id="StudentContact"
+        />
+        <input
+          type="text"
+          placeholder="CNIC"
+          value={Document.CNIC}
+          id="StudentCNIC"
+        />
+         <input
+          type="text"
+          placeholder="Course"
+          value={Document.Course}
+          // id="Course"
+        />
+      </div>
+      
       </CardActions>
-      <Collapse in={expanded} timeout="auto" unmountOnExit>
-        <CardContent>
-          <Typography paragraph>Method:</Typography>
-          <Typography paragraph>
-            Heat 1/2 cup of the broth in a pot until simmering, add saffron and set
-            aside for 10 minutes.
-          </Typography>
-          <Typography paragraph>
-            Heat oil in a (14- to 16-inch) paella pan or a large, deep skillet over
-            medium-high heat. Add chicken, shrimp and chorizo, and cook, stirring
-            occasionally until lightly browned, 6 to 8 minutes. Transfer shrimp to a
-            large plate and set aside, leaving chicken and chorizo in the pan. Add
-            pimentón, bay leaves, garlic, tomatoes, onion, salt and pepper, and cook,
-            stirring often until thickened and fragrant, about 10 minutes. Add
-            saffron broth and remaining 4 1/2 cups chicken broth; bring to a boil.
-          </Typography>
-          <Typography paragraph>
-            Add rice and stir very gently to distribute. Top with artichokes and
-            peppers, and cook without stirring, until most of the liquid is absorbed,
-            15 to 18 minutes. Reduce heat to medium-low, add reserved shrimp and
-            mussels, tucking them down into the rice, and cook again without
-            stirring, until mussels have opened and rice is just tender, 5 to 7
-            minutes more. (Discard any mussels that don&apos;t open.)
-          </Typography>
-          <Typography>
-            Set aside off of the heat to let rest for 10 minutes, and then serve.
-          </Typography>
-        </CardContent>
-      </Collapse>
+
     </Card>
   
-    <div>
+    {/* <div>
       <h1>Attendence</h1>
       <form onClick={SearchStudentData}>
         <input
           type="search"
           name=""
           id="SearchStudent"
-          onChange={(e) => {
-            setSearchStudent(e.target.value);
-          }}
+          // onChange={(e) => {
+          //   setSearchStudent(e.target.value);
+          // }}
         />
         <input type="submit" value={"Search"} />
       </form>
@@ -191,14 +183,16 @@ const Attendence = () => {
           value={Document.Picture}
           id="StudentPicture"
         /> */}
-        <input
+        {/* <input
           type="text"
           placeholder="Course"
           value={Document.Course}
-          id="StudentCourse"
-        />
-      </form>
-    </div>
+          id="StudentCourse" */}
+        {/* /> */}
+      {/* </form> */}
+    {/* </div> */}
+     {/* */} 
+
   </>
 
   );

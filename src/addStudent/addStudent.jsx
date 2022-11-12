@@ -1,12 +1,14 @@
 import { collection, addDoc } from "firebase/firestore";
 import { db } from "../firebase";
-import { useState } from "react";import {
+import { useState } from "react";
+import {
   getStorage,
   ref,
   uploadBytesResumable,
   getDownloadURL,
-} from "firebase/storage";import { v4 as uuidv4 } from "uuid";
-import { async } from "@firebase/util";
+} from "firebase/storage";
+import { v4 as uuidv4 } from "uuid";
+import "./addStudent.css";
 
 const AddStudent = () => {
   const [Name, setName] = useState("");
@@ -46,12 +48,12 @@ const AddStudent = () => {
         console.log(error);
       },
       () => {
-        getDownloadURL(uploadTask.snapshot.ref).then(async(downloadURL) => {
+        getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
           // getImg.setAttribute("src", `${downloadURL}`);
           // resolve(downloadURL);
-         const url = await downloadURL;
+          const url = await downloadURL;
           //  setimgUrl(url)
-           console.log(url);
+          console.log(url);
           try {
             const docRef = await addDoc(collection(db, "AddStudentData"), {
               Name: Name,
@@ -61,7 +63,7 @@ const AddStudent = () => {
               CNIC: CNIC,
               Picture: url,
               Course: Course,
-              Teacher:Teacher,
+              Teacher: Teacher,
             });
             console.log("Document written with ID: ", docRef.id);
           } catch (e) {
@@ -70,82 +72,114 @@ const AddStudent = () => {
         });
       }
     );
-   
+    //
   };
 
   return (
     <div>
-        <h1>Add Student</h1>
-
+      <h1>Add Student</h1>
       <form onSubmit={setStudentData}>
-        <input
-          type="text"
-          id="Name"
-          onChange={(e) => {
-            setName(e.target.value);
-          }}
-          placeholder="Name"
-        />
-        <input
-          type="text"
-          id="Father"
-          onChange={(e) => {
-            setFather(e.target.value);
-          }}
-          placeholder="Father Name"
-        />
-        <input
-          type="text"
-          id="Roll"
-          onChange={(e) => {
-            setRoll(e.target.value);
-          }}
-          placeholder="Roll Number"
-        />
-        <input
-          type="text"
-          id="Contact"
-          onChange={(e) => {
-            setContact(e.target.value);
-          }}
-          placeholder="Contact Number"
-        />
-        <input
-          type="number"
-          id="CNIC"
-          onChange={(e) => {
-            setCNIC(e.target.value);
-          }}
-          placeholder="CNIC number"
-        />
-        <input
-          type="file"
-          id="Picture"
-          onChange={(e) => {
-            setPicture(e.target.files[0]);
-            console.log(e.target.files[0]);
-          }}
-          placeholder="Picture"
-        />
-        <input
-          type="text"
-          id="Course"
-          onChange={(e) => {
-            setCourse(e.target.value);
-          }}
-          placeholder="Course Name"
-        />
-        <select name="class" id="adminSetClass" onChange={(e)=>{
-          setTeacher(e.target.value);
-        }}>
-          <option defaultValue={'Add Teacher'} disabled>Add Teacher</option>
-          <option value="inzimam">inzimam</option>
-          <option value="haider">haider</option>
-          <option value="ghous">ghous</option>
-        </select>
-        <input type="submit" value={"submit"} />
+        <table className={"Addtable"}>
+          <tr>
+            <td>
+              {" "}
+              <input
+                type="text"
+                id="Name"
+                onChange={(e) => {
+                  setName(e.target.value);
+                }}
+                placeholder="Name"
+              />
+            </td>
+            <td>
+              {" "}
+              <input
+                type="text"
+                id="Father"
+                onChange={(e) => {
+                  setFather(e.target.value);
+                }}
+                placeholder="Father Name"
+              />
+            </td>
+            <td>
+              <input
+                type="text"
+                id="Roll"
+                onChange={(e) => {
+                  setRoll(e.target.value);
+                }}
+                placeholder="Roll Number"
+              />
+            </td>
+          </tr>
+          <tr className="abcd">
+            <td>
+              <input
+                type="text"
+                id="Contact"
+                onChange={(e) => {
+                  setContact(e.target.value);
+                }}
+                placeholder="Contact Number"
+              />
+            </td>
+            <td>
+              <input
+                type="number"
+                id="CNIC"
+                onChange={(e) => {
+                  setCNIC(e.target.value);
+                }}
+                placeholder="CNIC number"
+              />
+            </td>
+            <td>
+              <input
+                type="file"
+                id="Picture"
+                onChange={(e) => {
+                  setPicture(e.target.files[0]);
+                  console.log(e.target.files[0]);
+                }}
+                placeholder="Picture"
+              />
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <input
+                type="text"
+                id="Course"
+                onChange={(e) => {
+                  setCourse(e.target.value);
+                }}
+                placeholder="Course Name"
+              />
+            </td>
+            <td>
+              <select 
+                name="class"
+                id="adminSetClass"
+                onChange={(e) => {
+                  setTeacher(e.target.value);
+                }}
+              >
+                <option defaultValue={"Add Teacher"} disabled>
+                  Add Teacher
+                </option>
+                <option value="inzimam">inzimam</option>
+                <option value="haider">haider</option>
+                <option value="ghous">ghous</option>
+              </select>
+            </td>
+            <td>
+              <input type="submit" className="AddBtn" value={"submit"} />
+            </td>
+          </tr>
+        </table>
       </form>
-      
     </div>
   );
 };
