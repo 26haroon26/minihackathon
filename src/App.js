@@ -11,11 +11,6 @@ import { BrowserRouter as Router, Routes, Route, Link, useNavigate } from "react
 import DrawerMe from "./DrawerMe";
 
 function App() {
- 
- 
-
- 
-
   return (
     
 <>

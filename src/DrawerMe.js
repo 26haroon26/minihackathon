@@ -14,14 +14,6 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import { useNavigate } from "react-router-dom";
 
-interface Props {
-  /**
-   * Injected by the documentation to work in an iframe.
-   * You won't need it on your project.
-   */
-  window?: () => Window;
-}
-
 
 const drawerWidth = 240;
 const navItems = [ "addstudent",
@@ -29,7 +21,7 @@ const navItems = [ "addstudent",
 "createclass",
 "attendence"];
 
-export default function DrawerAppBar(props: Props) {
+export default function DrawerAppBar(props) {
   const navigate = useNavigate();
 
   const { window } = props;
@@ -56,9 +48,9 @@ export default function DrawerAppBar(props: Props) {
       </List>
     </Box>
   );
-function navigateRoute(item) {
-  console.log(item);
-}
+// function navigateRoute(item) {
+//   console.log(item);
+// }
   const container = window !== undefined ? () => window().document.body : undefined;
 
   return (

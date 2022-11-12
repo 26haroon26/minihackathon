@@ -1,5 +1,5 @@
 import { collection, addDoc } from "firebase/firestore";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { db } from "../firebase";
 import "./createClass.css";
 const CreateClass = () => {
