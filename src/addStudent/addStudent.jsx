@@ -1,6 +1,12 @@
 import { collection, addDoc } from "firebase/firestore";
 import { db } from "../firebase";
-import { useState } from "react";
+import { useState } from "react";import {
+  getStorage,
+  ref,
+  uploadBytesResumable,
+  getDownloadURL,
+} from "firebase/storage";import { v4 as uuidv4 } from "uuid";
+import { async } from "@firebase/util";
 
 const AddStudent = () => {
   const [Name, setName] = useState("");
@@ -10,23 +16,61 @@ const AddStudent = () => {
   const [CNIC, setCNIC] = useState("");
   const [Picture, setPicture] = useState("");
   const [Course, setCourse] = useState("");
+  const [Teacher, setTeacher] = useState("");
+  const [imgUrl, setimgUrl] = useState("");
 
   const setStudentData = async (e) => {
     e.preventDefault();
-    try {
-      const docRef = await addDoc(collection(db, "AddStudentData"), {
-        Name: Name,
-        Father: Father,
-        Roll: Roll,
-        Contact: Contact,
-        CNIC: CNIC,
-        Picture: Picture,
-        Course: Course,
-      });
-      console.log("Document written with ID: ", docRef.id);
-    } catch (e) {
-      console.error("Error adding document: ", e);
-    }
+    const storage = getStorage();
+    const filename = `profile/${Picture.name}-${uuidv4()}`;
+    const storageRef = ref(storage, filename);
+    console.log(Picture.name);
+    const uploadTask = uploadBytesResumable(storageRef, Picture);
+    console.log(Picture);
+    uploadTask.on(
+      "state_changed",
+      (snapshot) => {
+        const progress =
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        console.log("Upload is " + progress + "% done");
+        switch (snapshot.state) {
+          case "paused":
+            console.log("Upload is paused");
+            break;
+          case "running":
+            console.log("Upload is running");
+            break;
+        }
+      },
+      (error) => {
+        console.log(error);
+      },
+      () => {
+        getDownloadURL(uploadTask.snapshot.ref).then(async(downloadURL) => {
+          // getImg.setAttribute("src", `${downloadURL}`);
+          // resolve(downloadURL);
+         const url = await downloadURL;
+          //  setimgUrl(url)
+           console.log(url);
+          try {
+            const docRef = await addDoc(collection(db, "AddStudentData"), {
+              Name: Name,
+              Father: Father,
+              Roll: Roll,
+              Contact: Contact,
+              CNIC: CNIC,
+              Picture: url,
+              Course: Course,
+              Teacher:Teacher,
+            });
+            console.log("Document written with ID: ", docRef.id);
+          } catch (e) {
+            console.error("Error adding document: ", e);
+          }
+        });
+      }
+    );
+   
   };
 
   return (
@@ -75,10 +119,11 @@ const AddStudent = () => {
           placeholder="CNIC number"
         />
         <input
-          type="text"
+          type="file"
           id="Picture"
           onChange={(e) => {
-            setPicture(e.target.value);
+            setPicture(e.target.files[0]);
+            console.log(e.target.files[0]);
           }}
           placeholder="Picture"
         />
@@ -90,12 +135,17 @@ const AddStudent = () => {
           }}
           placeholder="Course Name"
         />
-        <select name="class" id="adminSetClass">
+        <select name="class" id="adminSetClass" onChange={(e)=>{
+          setTeacher(e.target.value);
+        }}>
+          <option defaultValue={'Add Teacher'} disabled>Add Teacher</option>
           <option value="inzimam">inzimam</option>
-          <option value="inzimam">inzimam</option>
+          <option value="haider">haider</option>
+          <option value="ghous">ghous</option>
         </select>
         <input type="submit" value={"submit"} />
       </form>
+      
     </div>
   );
 };
