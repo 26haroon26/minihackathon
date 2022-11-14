@@ -1,8 +1,5 @@
-.CreateBtn{
-    width: 100%;
-   display: flex;
-   justify-content: flex-end;
- 
+#createClassBtn{
+margin-top:5px ; 
 }table{
     width: 100%;
 }

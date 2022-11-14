@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
+  // const [error, setError] = useState("");
   const navigate = useNavigate();
   const check = (e) => {
     e.preventDefault();
@@ -19,7 +19,8 @@ const Login = () => {
         navigate("/createclass");
       })
       .catch((error) => {
-        setError(true);
+        toast.error('Try again')
+        // setError(true);
       });
   };
 

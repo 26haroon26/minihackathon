@@ -1,7 +1,9 @@
+import { collection,addDoc, getDocs, query, where, serverTimestamp,} from "firebase/firestore";
 import { db } from "../firebase";
-import { collection, getDocs, query, where,updateDoc ,doc} from "firebase/firestore";
 import {React, useState } from "react";
 import './attendence.css'
+import { toast } from "react-toastify";
+
 //
 import SearchIcon from '@mui/icons-material/Search';
 import { styled } from '@mui/material/styles';
@@ -32,44 +34,34 @@ const Attendence = () => {
     setExpanded(!expanded);
   };
 
-  const [AttendeceValue, setAttendeceValue] = useState({});
+  const [AttendeceValue, setAttendeceValue] = useState('');
   const [SearchStudent, setSearchStudent] = useState("");
   const [Document, setDocument] = useState({});
 
   const SearchStudentData = async (e) => {
     e.preventDefault();
     const q = query(
-      collection(db, "AddStudentData"),
+      collection(db, "Students"),
       where("Roll", "==", SearchStudent)
     );
     
-    const querySnapshot = await getDocs(q);
+    const querySnapshot =await getDocs(q);
     querySnapshot.forEach((doc) => {
       UserId = doc.id;
       let data = JSON.stringify(doc.data())
-      console.log(data );
-      console.log(JSON.parse(data) );
-      let mata = JSON.parse(data)
-      console.log(mata);
       setDocument(JSON.parse(data));
-
-
-      
-      // console.log(doc);
     });
-    // const querySnapshot = await getDocs(collection(db, "AddStudentData"));
-    console.log();
-    // querySnapshot.forEach((doc) => {
-    //   console.log(`${doc.id}`);
-    // });
+
   };
   const CheckAttendence = async(e)=>{
       e.preventDefault();
-      // console.log(Editing.editingfile);
-      await updateDoc(doc(db, "AddStudentData", UserId ), {
-        ...Document,
-        mark:AttendeceValue
-      });
+     try {
+      const docRef = await addDoc(collection(db, "Attendence"), {
+        ...Document,Attendence:AttendeceValue,time:serverTimestamp(),});
+      toast.success("Attendence complete");
+    } catch (e) {
+      toast.error("Try Again");
+    }
     };
   
   return (<>
@@ -97,7 +89,7 @@ const Attendence = () => {
     
       <CardHeader className="cardHeader"
         avatar={
-          <Avatar sx={{  }} aria-label="recipe">
+          <Avatar aria-label="recipe" className='imgContan'>
             <img width={'100%'} height={'100%'} src={Document.Picture} alt="" />
           </Avatar>
         }
@@ -112,25 +104,25 @@ const Attendence = () => {
       <input
           type="text"
           placeholder="Roll"
-          value={Document.Roll}
+          defaultValue={Document.Roll}
           id="StudentRoll"
         />
         <input
           type="text"
           placeholder="Contact"
-          value={Document.Contact}
+          defaultValue={Document.Contact}
           id="StudentContact"
         />
         <input
           type="text"
           placeholder="CNIC"
-          value={Document.CNIC}
+          defaultValue={Document.CNIC}
           id="StudentCNIC"
         />
          <input
           type="text"
           placeholder="Course"
-          value={Document.Course}
+          defaultValue={Document.Course}
           // id="Course"
         />
         <select name="" id="teachr" onChange={(e)=>{

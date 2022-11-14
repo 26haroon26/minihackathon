@@ -48,9 +48,9 @@ export default function DrawerAppBar(props) {
       </List>
     </Box>
   );
-// function navigateRoute(item) {
-//   console.log(item);
-// }
+function navigateRoute(item) {
+  console.log(item);
+}
   const container = window !== undefined ? () => window().document.body : undefined;
 
   return (
@@ -76,7 +76,6 @@ export default function DrawerAppBar(props) {
           <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
             {navItems.map((item) => (
               <Button key={item} sx={{ color: '#fff' }} onClick={() => {
-             
                 navigate(item)
               }}>
                 {item}
