@@ -1,5 +1,5 @@
 .tble {
-  width: 100vw;
+  width: 95vw;
   overflow: scroll;
 
   height: 80%;
@@ -9,21 +9,20 @@
   box-shadow: 0px 0px 20px 3px rgb(160, 160, 255);
 }
 .tbl1row td {
-    padding: 5px;
-    height: 10px;
+  padding: 5px;
+  height: 10px;
   border-radius: 30px;
-  width: 15%;
-    text-align: center;
-    border: 1px solid rgb(160, 160, 255);
-    box-shadow: inset 0px 0px 20px 3px rgb(160, 160, 255);
-    
+  width: 10%;
+  text-align: center;
+  border: 1px solid rgb(160, 160, 255);
+  box-shadow: inset 0px 0px 20px 3px rgb(160, 160, 255);
 }
 .tblebody tr td {
-    box-shadow: inset 0px 0px 20px 3px rgb(160, 160, 255);
+  box-shadow: inset 0px 0px 20px 3px rgb(160, 160, 255);
   border-radius: 30px;
   padding: 5px;
   height: 30px;
-  width:15%;
+  width: 15%;
   text-align: center;
   border: 1px solid rgb(160, 160, 255);
 }
@@ -32,24 +31,64 @@
   padding: 10px;
   display: flex;
   justify-content: center;
+  flex-direction: column;
   margin: 10px auto;
   width: 25%;
   border-radius: 30px;
   border: 1px solid rgb(160, 160, 255);
 }
-.stdinp,
-.stdbtn {
+.stdform div {
+  display: flex;
+  width: 100%;
+}
+.stdform .stdinp,
+.stdform .stdbtn {
   padding: 10px;
   border-radius: 30px;
   width: 50%;
-  box-shadow: inset 0px 0px 20px 3px rgb(160, 160, 255);
   margin-right: 5px;
+  box-shadow: inset 0px 0px 20px 3px rgb(160, 160, 255);
   border: 1px solid white;
-}.img{
-    border-radius: 30% !important;
-    border: 1px solid white;
-height: 100%;
-width: 100%;
-/* object-fit: contain; */
-
+}
+.img {
+  border-radius: 30% !important;
+  border: 1px solid white;
+  height: 100%;
+  width: 100%;
+  /* object-fit: contain; */
+}
+.stdform h3 {
+  text-align: center;
+  box-shadow: inset 0px 0px 20px 3px rgb(160, 160, 255);
+  border-radius: 30px;
+  border: 1px solid white;
+  padding: 5px;
+}
+.GetAll {
+  display: flex;
+  justify-content: center;
+  width: 20%;
+  margin: 10px auto;
+}
+.GetAll button {
+  width: 50%; 
+  box-shadow: inset 0px 0px 10px 3px rgb(160, 160, 255);
+  border-radius: 30px;
+  border: 1px solid white;
+  padding: 5px;
+}
+@media screen and (max-width : 570px) {
+  .stdform,.GetAll,.tble{
+    width: 100%;
+  }
+  .GetAll button{
+    width: 25%;
+  }.stdform .stdinp,
+  .stdform .stdbtn{
+    width: 90%;
+  }.stdform div {
+    margin-top: -9px;
+    flex-direction: column;
+    align-items: center;
+  }
 }

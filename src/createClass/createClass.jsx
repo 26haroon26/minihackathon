@@ -24,21 +24,25 @@ const CreateClass = () => {
       });
       // console.log("Document written with ID: ", docRef.id);
       toast.success("Class create successfully");
-
     } catch (e) {
       // console.error("Error adding document: ", e);
       toast.error("Try Again");
-
     }
   };
 
   return (
     <form onSubmit={sett}>
-      <table>
-        <thead>
-          <tr><td><h1>Create class</h1></td></tr>
+      <table className="Addtable">
+        <thead className="addthead">
+          <tr className="add1row">
+            <td></td>
+            <td className="row1td">
+              <h3>Create class</h3>
+            </td>
+            <td></td>
+          </tr>
         </thead>
-        <tbody>
+        <tbody className="addtbody">
           <tr>
             <td>
               <input
@@ -103,14 +107,12 @@ const CreateClass = () => {
               />
             </td>
           </tr>
-          <tr >
+          <tr>
+            <td></td>
             <td>
+              <input type="submit" id="createClassBtn" value={"submit"} />
             </td>
-            <td>
-              <input type="submit" id='createClassBtn' value={"submit"} />
-            </td>
-            <td>
-            </td>
+            <td></td>
           </tr>
         </tbody>
       </table>

@@ -8,67 +8,69 @@ import {
 } from "firebase/firestore";
 import { db } from "../firebase";
 import { useEffect, useState } from "react";
-import './studentData.css'
-import { async } from "@firebase/util";
+import "./studentData.css";
 import moment from "moment/moment";
 
 const StudentData = () => {
-    const [StdRoll, setStdRoll] = useState("");
-    const [loading, setloading] = useState(false);
-    
-    const [completeDataDoc, setcompleteDataDoc] = useState([]);
-    const getAllStudent = async()=>{
-      
-        const querySnapshot = await getDocs(collection(db, "Students"));
-        
-        querySnapshot.forEach((doc) => {
-            let data = JSON.parse(JSON.stringify(doc.data()));
-            completeDataDoc.push(data);
-            console.log(completeDataDoc);
-            setloading(!loading)
+  const [StdRoll, setStdRoll] = useState("");
+  const [loading, setloading] = useState(false);
 
-        });
-    }
-    // useEffect (()=>{
-  
-    // },[])
+  const [completeDataDoc, setcompleteDataDoc] = useState([]);
+  const getAllStudent = async () => {
+    const querySnapshot = await getDocs(collection(db, "Students"));
+
+    querySnapshot.forEach((doc) => {
+      let data = JSON.parse(JSON.stringify(doc.data()));
+      completeDataDoc.push(data);
+      console.log(completeDataDoc);
+      setloading(!loading);
+    });
+  };
+  // useEffect (()=>{
+
+  // },[])
   const GetStudentCompleteData = async (e) => {
-    setcompleteDataDoc([])
-    
+    setcompleteDataDoc([]);
+
     e.preventDefault();
     const q = query(collection(db, "Attendence"), where("Roll", "==", StdRoll));
 
     const querySnapshot = await getDocs(q);
 
-    let arr=[];
+    let arr = [];
     querySnapshot.forEach((doc) => {
       let data = JSON.parse(JSON.stringify(doc.data()));
-      arr.push(...arr,data)
+      arr.push(...arr, data);
       setcompleteDataDoc(arr);
-      setloading(!loading)
-
-
+      setloading(!loading);
     });
     // console.log(completeDataDoc[1].Attendence);
   };
   return (
     <div>
       <form className="stdform" onSubmit={GetStudentCompleteData}>
-        <input className="stdinp"
-          type="text"
-          placeholder="Roll Number"
-          onChange={(e) => {
-            setStdRoll(e.target.value);
-          }}
-        />
-        <input type="submit" value="Check" className="stdbtn" />
+        <h3>Students data</h3>
+        <div>
+          <input
+            className="stdinp"
+            type="text"
+            placeholder="Roll Number"
+            onChange={(e) => {
+              setStdRoll(e.target.value);
+            }}
+          />
+          <input type="submit" value="Check" className="stdbtn" />
+        </div>
       </form>
-        <button onClick={getAllStudent}>get All</button>
+      <div className="GetAll">
+      <button  onClick={getAllStudent}>
+        get All
+      </button>
+        </div>{" "}
       <table className="tble">
         <thead className="tbleHead">
           <tr className="tbl1row">
             <td>S.no</td>
-            <td>Picture</td>
             <td>Name</td>
             <td>Father</td>
             <td>Roll</td>
@@ -80,20 +82,11 @@ const StudentData = () => {
             {/* <td>time</td> */}
           </tr>
         </thead>
-        
+
         <tbody className="tblebody">
-          {
-          completeDataDoc?.map((element, i) => (
+          {completeDataDoc?.map((element, i) => (
             <tr key={i}>
               <td>{i + 1}</td>
-              <td >
-                <img className="img"
-                  src={element?.Picture}
-                  height={"100%"}
-                  width={"100%"}
-                  alt=""
-                />
-              </td>
               <td>{element?.Name}</td>
               <td>{element?.Father}</td>
               <td>{element?.Roll}</td>
@@ -102,13 +95,10 @@ const StudentData = () => {
               <td>{element?.Course}</td>
               <td>{element?.Contact}</td>
               <td>{element?.CNIC}</td>
-              
-              {/* <td>{element?.time.seconds}</td> */}
 
+              {/* <td>{element?.time.seconds}</td> */}
             </tr>
-          )
-       ) }
-     
+          ))}
         </tbody>
       </table>
     </div>

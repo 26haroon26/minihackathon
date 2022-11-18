@@ -105,9 +105,11 @@ const AddStudent = () => {
         <table className={"Addtable"} >
           <thead className="addthead">
             <tr className="add1row">
-              <td>
-                <h1>Add Student</h1>
+              <td></td>
+              <td className="row1td">
+                <h3>Add Student</h3>
               </td>
+              <td></td>
             </tr>
           </thead>
           <tbody className="addtbody">

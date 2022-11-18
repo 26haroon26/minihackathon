@@ -1,30 +1,36 @@
 .formRow{
     display: flex;
 }.Addtable{
-    width: 100vw;
-  overflow: scroll;
-
+    width: 95vw;
+  /* overflow: scroll; */
+display: flex;
+flex-direction: column;
   height: 80%;
   padding: 10px;
   border-radius: 30px;
   border: 1px solid rgb(160, 160, 255);
   box-shadow: 0px 0px 20px 3px rgb(160, 160, 255);
-}
-.add1row{
-    text-align: center;
+}.add1row{
     display: flex;
-    align-items: center;
     justify-content: center;
-}.addtbody tr td{
-    box-shadow: inset 0px 0px 20px 3px rgb(160, 160, 255);
+}.add1row .row1td{
+    width: 25%;
+  border: 1px solid rgb(160, 160, 255);
+  border-radius: 30px;
+  box-shadow: inset 0px 0px 20px 3px rgb(160, 160, 255);
+  text-align: center;
+
+}
+.addtbody tr td{
     border-radius: 30px;
     padding: 5px;
     height: 30px;
     width:15%;
     text-align: center;
-    border: 1px solid rgb(160, 160, 255); 
 }.addtbody tr td input{
     width: 70%;
+    box-shadow: inset 0px 0px 20px 3px rgb(160, 160, 255);
+    border: 1px solid rgb(160, 160, 255); 
 }
 form{
     /* border: 1px solid red; */
@@ -35,9 +41,11 @@ form{
     border-radius: 30px;
     border: 1px solid rgb(190, 190, 190);
 }
-form table tr td input,#adminSetClass,option{
+form table tr td input,#adminSetClass{
     padding: 10px;
-     border: 1px solid rgb(190, 190, 190);
     border-radius: 30px;
-    width: 150px;
+    box-shadow: inset 0px 0px 20px 3px rgb(160, 160, 255);
+    border: 1px solid rgb(160, 160, 255);    width: 150px;
+}#adminSetClass{
+    width: 70%;
 }
